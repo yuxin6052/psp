@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yf.psp.db.postgres.rbac.dao.RbacPrivilegeDao">
+
+    <resultMap id="ResultList" type="com.yf.psp.db.postgres.rbac.RbacPrivilege">
+		
+		<result property="deleteFlag"  column="delete_flag"/>
+		<result property="privilegeId"  column="privilege_id"/>
+		<result property="operation"  column="operation"/>
+		<result property="resId"  column="res_id"/>
+		<result property="roleName"  column="role_name"/>
+    </resultMap>
+
+    <select id="select"   resultMap="ResultList">
+      SELECT delete_flag, privilege_id, operation, res_id,role_name
+		FROM tbl_rbac_privilege    where delete_flag=0
+	 </select>
+     
+</mapper>   

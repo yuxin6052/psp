@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="psp-common-http" />
+        <module name="psp-db" />
+        <module name="psp-static-data" />
+        <module name="psp-tenant-http" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="mdm-ctrl-device" target="1.8" />
+      <module name="mdm-device-msg-parse" target="1.8" />
+      <module name="mdm-http-file-server" target="1.8" />
+      <module name="mdm-local-mq" target="1.8" />
+      <module name="mdm-mq-client" target="1.8" />
+      <module name="mdm-websocket" target="1.8" />
+      <module name="mdm-websocket-pda" target="1.8" />
+      <module name="mdm-websocket-tenant" target="1.8" />
+      <module name="psp-common" target="1.8" />
+      <module name="psp-common-http" target="1.8" />
+      <module name="psp-db" target="1.8" />
+      <module name="psp-parent" target="1.8" />
+      <module name="psp-static-data" target="1.8" />
+      <module name="psp-tenant-http" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="mdm-ctrl-device" options="-parameters" />
+      <module name="mdm-device-msg-parse" options="-parameters" />
+      <module name="mdm-http-file-server" options="-parameters" />
+      <module name="mdm-local-mq" options="-parameters" />
+      <module name="mdm-mq-client" options="-parameters" />
+      <module name="mdm-websocket" options="-parameters" />
+      <module name="mdm-websocket-pda" options="-parameters" />
+      <module name="mdm-websocket-tenant" options="-parameters" />
+      <module name="psp-common" options="-parameters" />
+      <module name="psp-common-http" options="-parameters" />
+      <module name="psp-db" options="-parameters" />
+      <module name="psp-static-data" options="-parameters" />
+      <module name="psp-tenant-http" options="-parameters" />
+    </option>
+  </component>
+</project>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding" addBOMForNewFiles="with NO BOM">
+    <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mdm-ctrl-device" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mdm-device-msg-parse" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mdm-http-file-server" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mdm-local-mq" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mdm-mq-client" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mdm-websocket" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mdm-websocket-pda" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mdm-websocket-tenant" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/psp-common" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/psp-common-http" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/psp-db" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/psp-static-data" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/psp-tenant-http" charset="UTF-8" />
+  </component>
+</project>

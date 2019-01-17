@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/psp-common-http/psp-common-http.iml" filepath="$PROJECT_DIR$/psp-common-http/psp-common-http.iml" />
+      <module fileurl="file://$PROJECT_DIR$/psp-db/psp-db.iml" filepath="$PROJECT_DIR$/psp-db/psp-db.iml" />
+      <module fileurl="file://$PROJECT_DIR$/psp-parent.iml" filepath="$PROJECT_DIR$/psp-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/psp-static-data/psp-static-data.iml" filepath="$PROJECT_DIR$/psp-static-data/psp-static-data.iml" />
+      <module fileurl="file://$PROJECT_DIR$/psp-tenant-http/psp-tenant-http.iml" filepath="$PROJECT_DIR$/psp-tenant-http/psp-tenant-http.iml" />
+    </modules>
+  </component>
+</project>

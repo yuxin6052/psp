@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yf.psp.db.postgres.csm.dao.CsmTenantDao">
+
+    <resultMap id="ResultList" type="com.yf.psp.db.postgres.csm.CsmTenant">
+		<result property="tenantId"  column="tenant_id"/>
+		<result property="tenantName"  column="tenant_name"/>
+		<result property="tenantType"  column="tenant_type"/>
+		<result property="responsiblePerson"  column="responsible_person"/>
+		<result property="telNo"  column="tel_no"/>
+		<result property="tenantAbbreviation"  column="tenant_abbreviation"/>
+		<result property="createTime"  column="create_time"/>
+		<result property="updateTime"  column="update_time"/>
+		<result property="deleteFlag"  column="delete_flag"/>
+		<result property="deleteTime"  column="delete_time"/>
+
+
+    </resultMap>
+    
+    <select id="getByTenantId"   resultMap="ResultList">
+    	SELECT tenant_id, tenant_name, tenant_type, responsible_person, tel_no, tenant_abbreviation, create_time, update_time, delete_flag, delete_time
+FROM  tbl_csm_tenant where tenant_id=#{tenantId}
+    </select> 
+ 
+</mapper>   
