@@ -18,7 +18,7 @@ fs.open('./build/env.js', 'w', function(err, fd) {
 
 module.exports = merge(webpackBaseConfig, {
     output: {
-        publicPath: 'https://bcc-cf.honcloud.honeywell.com.cn/adminwebdist/',  // 修改 https://iv...admin 这部分为你的服务器域名 
+        publicPath: 'http://106.12.77.141/dist/',  // 修改 https://iv...admin 这部分为你的服务器域名 
         filename: '[name].[hash].js',
         chunkFilename: '[name].[hash].chunk.js'
     },

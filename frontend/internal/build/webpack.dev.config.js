@@ -53,15 +53,15 @@ module.exports = merge(webpackBaseConfig, {
             '/tenant/user/v1/login': {
             // 目标服务器地址
             //   target: 'http://127.0.0.1:8090',
-            target: 'http://127.0.0.1:9093',
+            target: 'http://106.12.77.141',
               //路径重写
             //   pathRewrite: {'^/api' : ''},
               changeOrigin: true
             },
-            '/admin': {
+            '/tenant': {
                 // 目标服务器地址
                 //   target: 'http://127.0.0.1:8090',
-                target: 'http://127.0.0.1:9097',
+                target: 'http://106.12.77.141',
                   //路径重写
                 //   pathRewrite: {'^/api' : ''},
                   changeOrigin: true
