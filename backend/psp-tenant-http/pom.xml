@@ -153,13 +153,13 @@
 			            <phase>package</phase>
 			            <configuration>
 			            <target>
-				              <property name="HOST" value="172.81.242.29"></property>
-							  <property name="USER" value="ubuntu"></property>
+				              <property name="HOST" value="106.12.77.141"></property>
+							  <property name="USER" value="root"></property>
 							  <property name="MGRSHIPMENTJARNAME" value="psp-tenant-http-0.0.1-SNAPSHOT-exec.jar"></property>
 							  <property name="MGRSHIPMENTJAR" value="./target/${MGRSHIPMENTJARNAME}"></property>
-							  <property name="PASSWORD" value="Honeywell@654321"></property>
+							  <property name="PASSWORD" value="nuist@2019"></property>
 							  <property name="DEST_DIR" value="~/psp/backend"></property>
-                              <scp todir="${USER}@${HOST}:${DEST_DIR}" port="60000" file="${MGRSHIPMENTJAR}" password="${PASSWORD}" trust="true"></scp>
+                              <scp todir="${USER}@${HOST}:${DEST_DIR}" port="22" file="${MGRSHIPMENTJAR}" password="${PASSWORD}" trust="true"></scp>
 			            </target>
 			            </configuration>
 			            <goals>

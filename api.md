@@ -1,9 +1,9 @@
 # Psp Api
 ## 1.login
-###  url: POST /{role}/v1/user/login
+###  url: POST /tenant/v1/user/login
 ### Request:
 {
-username:”admin” <string> // demo阶段有效用户为 admin
+username:”admin” <string> // demo阶段有效用户为 admin 
 password:”123456” <string> // 密码， demo阶段有效用户为的密码均为123456,麻烦app 写死固定值
 }
 ### Response:
