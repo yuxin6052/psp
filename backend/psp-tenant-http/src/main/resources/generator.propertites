@@ -1,0 +1,5 @@
+jdbc.driverLocation= C:\\Users\\H197980\\.m2\\repository\\org\\postgresql\\postgresql\\42.2.5\\postgresql-42.2.5.jar
+jdbc.driverClass=org.postgresql.Driver
+jdbc.connectionURL=jdbc:postgresql://106.12.77.141:5432/psp?currentSchema=psp
+jdbc.userId=postgres
+jdbc.password=nuist@2019

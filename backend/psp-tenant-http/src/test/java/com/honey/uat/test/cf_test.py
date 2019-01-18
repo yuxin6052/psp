@@ -15,8 +15,8 @@ import hashlib
 #115.159.114.116
 schema = 'http'
 home_host = '127.0.0.1'
-port = '8080'
-bussiness_port = '8080'
+port = '8181'
+bussiness_port = '8181'
 prefix = ''
 
 # logger = logging.getLogger("loggingmodule.NomalLogger")  
@@ -44,14 +44,14 @@ class mytests(unittest.TestCase):
                 '%s:%s' % (home_host,bussiness_port), timeout=300)
 
         obj = dict()
-        obj["username"] = "honeywell"
+        obj["username"] = "admin"
   
         obj["password"] = "123456" 
         obj1 = dict()
         obj1['Content-type'] = "application/json"
         obj1['Accept'] = "application/json"
         
-        self.conn1.request('POST','%s/tenant/user/v1/login'% prefix ,json.dumps(obj),obj1)
+        self.conn1.request('POST','%s/tenant/v1/user/login'% prefix ,json.dumps(obj),obj1)
         res = self.conn1.getresponse()
         instance = json.load(res)
 
@@ -65,13 +65,18 @@ class mytests(unittest.TestCase):
         
     def testshipment(self):
 
-        self.conn.request('GET', '%s/tenant/dashboard/v1/overview'% prefix,
+        self.conn.request('GET', '%s/tenant/v1/companyLabel/list'% prefix,
+                          json.dumps({}), self.header)
+        res1 = self.conn.getresponse()
+        instance1 = json.load(res1)
+
+        self.conn.request('GET', '%s/tenant/v1/company/list?queryType=1'% prefix,
                           json.dumps({}), self.header)
         res1 = self.conn.getresponse()
         instance1 = json.load(res1)
 
 
-        self.conn.request('GET', '%s/tenant/dashboard/v1/getProvinceData?countryCode='% prefix,
+        self.conn.request('GET', '%s/tenant/compan/v1/getProvinceData?countryCode='% prefix,
                           json.dumps({}), self.header)
         res1 = self.conn.getresponse()
         instance1 = json.load(res1)

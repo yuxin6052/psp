@@ -27,7 +27,7 @@ async updateOtherUserPassword(form) {
     //data = qs.stringify(data)
     return axios({
       method: 'post',
-      url: '/tenant/user/v1/login',
+      url: '/tenant/v1/user/login',
       data: data,
       headers: {
           'Access-Control-Allow-Origin': 'localhost:9092',

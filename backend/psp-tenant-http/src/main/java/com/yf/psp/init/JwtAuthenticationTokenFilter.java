@@ -34,7 +34,7 @@ public class JwtAuthenticationTokenFilter extends UsernamePasswordAuthentication
 	        this.authenticationManager = authenticationManager;
 	        this.roleService = roleService;
 	        this.rbacRoleStaticDataService = rbacRoleStaticDataService;
-	        super.setFilterProcessesUrl("/tenant/user/v1/login");
+	        super.setFilterProcessesUrl("/tenant/v1/user/login");
 	    }
 
 	    @Override
@@ -78,12 +78,10 @@ public class JwtAuthenticationTokenFilter extends UsernamePasswordAuthentication
 	        response.setHeader(JwtHelper.JWT_HTTP_HEADER_AUTHORIZATION, JwtHelper.JWT_TOKEN_PREFIX + token);
 	        
 	        Map<String,Object> pageInfo = new HashMap<>();
-			pageInfo.put("tenantId",jwtUser.getTenantId());
-			pageInfo.put("tenantName",jwtUser.getTenantName());
-			pageInfo.put("username",jwtUser.getUsername());
 
-	        pageInfo.put("page", roleService.getPageInfo(jwtUser.getRoleName()));
-	        pageInfo.put("homePage", rbacRoleStaticDataService.get(jwtUser.getRoleName()).getHomePageUrl());
+			pageInfo.put("username",jwtUser.getUsername());
+			pageInfo.put("userId",jwtUser.getUserId());
+			pageInfo.put("role",jwtUser.getRoleName());
 	        
 	        Map<String,Object> ret = new HashMap<>();
 	        ret.put("errorCode", 0);

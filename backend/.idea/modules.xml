@@ -7,6 +7,7 @@
       <module fileurl="file://$PROJECT_DIR$/psp-parent.iml" filepath="$PROJECT_DIR$/psp-parent.iml" />
       <module fileurl="file://$PROJECT_DIR$/psp-static-data/psp-static-data.iml" filepath="$PROJECT_DIR$/psp-static-data/psp-static-data.iml" />
       <module fileurl="file://$PROJECT_DIR$/psp-tenant-http/psp-tenant-http.iml" filepath="$PROJECT_DIR$/psp-tenant-http/psp-tenant-http.iml" />
+      <module fileurl="file://$PROJECT_DIR$/untitled/test.iml" filepath="$PROJECT_DIR$/untitled/test.iml" />
     </modules>
   </component>
 </project>

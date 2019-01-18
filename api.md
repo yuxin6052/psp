@@ -41,7 +41,7 @@ password:”123456” <string> // 密码， demo阶段有效用户为的密码�
 
 
 ## 3.list company
-###  url: GET /tenant/v1/company/list?unifiedSocialCreditCode=aaa&companyName=bbb&companyLabel=1&pageNo=1&pageSize=10
+###  url: GET /tenant/v1/company/list?unifiedSocialCreditCode=aaa&companyName=bbb&companyLabel=1&pageNo=1&pageSize=10&queryType=1 // queryType 1:查询所有公司 2：刚创建的公司 3：查询待审批入库的公司 4：查询已经入库的公司
 ### Request:
 {
 }
