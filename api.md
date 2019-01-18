@@ -9,98 +9,9 @@ password:”123456” <string> // 密码， demo阶段有效用户为的密码�
 ### Response:
 {
 "data": {
-"tenantId":11
-"tenantName":"aaa"
-"page": [//页面信息
-{
-"index": 1,
-"id": 11,
-"nameCode": "Overview",
-"children": [
-{
-"index": 1,
-"id": 12,
-"nameCode": "Dashboard"
-},
-{
-"index": 2,
-"id": 13,
-"nameCode": "Dashboard2"
-},
-{
-"index": 3,
-"id": 14,
-"nameCode": "Dashboard3"
-}
-]
-},
-{
-"index": 2,
-"id": 15,
-"nameCode": "User Analytics",
-"children": [
-{
-"index": 1,
-"id": 16,
-"nameCode": "User"
-}
-]
-},
-{
-"index": 3,
-"id": 17,
-"nameCode": "App Versions"
-},
-{
-"index": 4,
-"id": 18,
-"nameCode": "Platform"
-},
-{
-"index": 5,
-"id": 19,
-"nameCode": "Events"
-},
-{
-"index": 6,
-"id": 20,
-"nameCode": "Management",
-"children": [
-{
-"index": 1,
-"id": 21,
-"nameCode": "Application Management",
-"children": [
-{
-"index": 0,
-"id": 22,
-"nameCode": "Create",
-"enable": 1
-},
-{
-"index": 1,
-"id": 23,
-"nameCode": "Edit",
-"enable": 1
-},
-{
-"index": 2,
-"id": 24,
-"nameCode": "View",
-"enable": 1
-},
-{
-"index": 3,
-"id": 25,
-"nameCode": "Delete",
-"enable": 1
-}
-]
-}
-]
-}
-],
+"role":"proxy" //分六种角色 每种角色看到的菜单按钮不一样 admin:系统管理员 、auditDepartment:审计部、engineeringDepartment:工程部、operator:操作员、proxyCompany:招标代理公司、commonCompany：投标公司
 "userId": 4
+"username": "admin"
 },
 "errorCode": 0,
 "errorMsg": "Success"
@@ -120,6 +31,7 @@ password:”123456” <string> // 密码， demo阶段有效用户为的密码�
 {
 "labelId":11,
 "labelName":"工程监理"
+"labelType":1  // 1:施工类企业 2:货物类 3：服务类
 }
 ]
 },
@@ -136,24 +48,26 @@ password:”123456” <string> // 密码， demo阶段有效用户为的密码�
 ### Response:
 {
 "data": {
+total:100
 "companys":[
 {
-businessEndTime:1212412424124// 1970.1.1到该日期的毫秒数
 businessScope:"asdasd" //业务范围
-businessStartTime:1212412424124// 1970.1.1到该日期的毫秒数
-commpanyNature:"afafsa" //公司性质
-companyId:1 
+companyId:1
 companyName:"asdda"
- 
+companyQualification:"sadsadsa"//企业资质
 legalPerson:"afasf" //法人
+legalPersonIdentityNo:"afasf" //法人身份证号
+legalPersonAuthorizer："sadasd" //法人授权人
+authorizerPhoneNo:"sadsaf"//授权人手机号
+authorizerEmail:"asdsadsa"//授权人邮箱
 registerArea:"asfasfas" //注册地
 registerCapital:"asfasf" //注册资本
-registerNo:"asdasf" //注册号
-registrationAuthority:"asasf" //登记机关
+addressNj:"asfsafas"// 驻宁地址
  
 status:1 //启用禁用状态 1：启用 0：暂停 2：暂停中 3：注销
+audit_status：0 // 审核状态  0:未提交审核 1:待审核 1：审核通过 2：审核不通过
 unifiedSocialCreditCode:"asdasd" //社会统一信用代码
-url:"asdasasf"  //网址
+remark:"阿斯顿撒"  //多行文本区域(备注)
 companyLabels:[   //公司包含的职能标签
 {
 "labelId":11,
@@ -165,6 +79,7 @@ users:[
 userId:1
 username:"afsa" //登陆账号
 realName:"asdas" //姓名
+role:"proxy"
 status:1 //启用禁用状态 1：启用 0：暂停 2：作废
 }
 ]
@@ -189,6 +104,7 @@ users:[
 userId:1
 username:"afsa" //登陆账号
 realName:"asdas" //姓名
+role:"proxy"
 status:1 //启用禁用状态 1：启用 0：暂停 2：作废
 }
 ]
@@ -202,12 +118,10 @@ status:1 //启用禁用状态 1：启用 0：暂停 2：作废
 ###  url: POST /tenant/v1/company/create
 ### Request:
 {
- 
 companyName:"asdda"
- 
- 
-registerArea:"asfasfas" //注册地
- 
+legalPersonAuthorizer："sadasd" //法人授权人
+authorizerPhoneNo:"sadsaf"//授权人手机号
+remark:"阿斯顿撒"  //多行文本区域(备注)
 unifiedSocialCreditCode:"asdasd" //社会统一信用代码
 labelIds:[   //公司包含的职能标签
  11,22,33
@@ -224,20 +138,35 @@ companyId: 1
 "errorMsg": "Success"
 }
 
-## 6.update company 
+## 6.update company
 ###  url: POST /tenant/v1/company/update
 ### Request:
 {
- companyId：1
+--1.第一部分是政务部门内部操作员更新的字段
+companyId:1
 companyName:"asdda"
- 
- 
-registerArea:"asfasfas" //注册地
- 
+legalPersonAuthorizer："sadasd" //法人授权人
+authorizerPhoneNo:"sadsaf"//授权人手机号
+remark:"阿斯顿撒"  //多行文本区域(备注)
 unifiedSocialCreditCode:"asdasd" //社会统一信用代码
 labelIds:[   //公司包含的职能标签
  11,22,33
 ]
+
+
+--2.第二部分是企业自己更新的字段
+businessScope:"asdasd" //业务范围
+companyQualification:"sadsadsa"//企业资质
+legalPerson:"afasf" //法人
+legalPersonIdentityNo:"afasf" //法人身份证号
+authorizerEmail:"asdsadsa"//授权人邮箱
+registerArea:"asfasfas" //注册地
+registerCapital:"asfasf" //注册资本
+addressNj:"asfsafas"// 驻宁地址
+
+
+
+
 }
 ### Response:
 {
@@ -256,8 +185,10 @@ labelIds:[   //公司包含的职能标签
 ### Response:
 {
 "data": {
+total:100
 "users":[
 {
+role:"proxy"
 realName:"asfas" //姓名
  username:"aasfsfa"
  status:1 //启用禁用状态 1：启用 0：暂停 2：作废
@@ -292,24 +223,12 @@ labels:[   //公司包含的职能标签
 ###  url: POST /tenant/v1/user/create
 ### Request:
 {
- 
 companyId:1
- 
-    
 userName:"sadas" //登陆账号
- 
- 
 realName:"sadsa" //姓名
- 
-contactNo:"2141224" // 手机号码
-otherContactNo:"2141224" // 其他联系方式
+contactNo:"2141224" // 办公电话
 address:"asdsad" // 地址
 identityNo:"21415125" // 身份证号
-officePhone:"13124" // 办公室电话
-zipCode:"13124" // 邮编
-email:"13124"
- 
-
 ]
 }
 ### Response:
@@ -326,17 +245,17 @@ userId: 1
 
 
 
-## 9.update user  status
+## 9.update user
 ###  url: POST /tenant/v1/user/update
 ### Request:
 {
- 
 userId:1
- 
-    
+userName:"sadas" //登陆账号
+realName:"sadsa" //姓名
+contactNo:"2141224" // 办公电话
+address:"asdsad" // 地址
+identityNo:"21415125" // 身份证号
 status:1 //启用禁用状态 1：启用 0：暂停 2：作废
- 
-   
 }
 ### Response:
 {
