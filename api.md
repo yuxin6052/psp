@@ -280,3 +280,20 @@ status:1 //启用禁用状态 1：启用 0：暂停 2：作废
 "errorCode": 0,
 "errorMsg": "Success"
 }
+
+
+## 11.入库企业审核
+###  url: GET /tenant/v1/company/audit
+### Request:
+{
+companyId：11
+isAgree：0 // 0：不同意 1：同意
+}
+### Response:
+{
+"data": {
+ 
+},
+"errorCode": 0,
+"errorMsg": "Success"
+}
