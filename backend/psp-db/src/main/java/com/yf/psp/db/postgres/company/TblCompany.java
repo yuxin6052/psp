@@ -642,4 +642,13 @@ public class TblCompany {
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
+private Date auditTime;
+    public Date getAuditTime() {
+        return auditTime;
+    }
+
+
+    public void setAuditTime(Date audit) {
+        this.auditTime = auditTime;
+    }
 }

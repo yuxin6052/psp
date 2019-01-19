@@ -70,6 +70,32 @@ class mytests(unittest.TestCase):
         res1 = self.conn.getresponse()
         instance1 = json.load(res1)
 
+        obj = {"companyName":"asdda",
+                             "legalPersonAuthorizer":"sadasd",
+                                                     "authorizerPhoneNo":"sadsaf",
+                          "remark":"阿斯顿撒",
+               "unifiedSocialCreditCode":"asdasd",
+                                "labelIds":[1,2,3]}
+
+        self.conn.request('POST', '%s/tenant/v1/company/create'% prefix,
+                          json.dumps(obj), self.header)
+        res1 = self.conn.getresponse()
+        instance1 = json.load(res1)
+
+        obj = {"businessScope":"asdasd"  ,
+               "companyQualification":"sadsadsa" ,
+               "legalPerson":"afasf" ,
+               "legalPersonIdentityNo":"afasf"  ,
+               "authorizerEmail":"asdsadsa" ,
+               "registerArea":"asfasfas" ,
+               "companyId":9,
+               "registerCapital":"asfasf1"  ,
+               "addressNj":"asfsafas" }
+        self.conn.request('POST', '%s/tenant/v1/company/update?updateType=2'% prefix,
+                          json.dumps(obj), self.header)
+        res1 = self.conn.getresponse()
+        instance1 = json.load(res1)
+
         self.conn.request('GET', '%s/tenant/v1/company/list?queryType=1'% prefix,
                           json.dumps({}), self.header)
         res1 = self.conn.getresponse()

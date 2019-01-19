@@ -1,21 +1,23 @@
 package com.yf.psp.company.service;
 
 import com.yf.psp.common.login.UserSession;
+import com.yf.psp.company.entity.CompanyRequest;
 import com.yf.psp.db.postgres.company.TblCompany;
 import com.yf.psp.db.postgres.company.TblCompanyLabel;
+import com.yf.psp.db.postgres.company.TblCompanyLabelRela;
 import com.yf.psp.db.postgres.company.dao.TblCompanyLabelMapper;
+import com.yf.psp.db.postgres.company.dao.TblCompanyLabelRelaMapper;
 import com.yf.psp.db.postgres.company.dao.TblCompanyMapper;
+import com.yf.psp.db.postgres.csm.TblCsmUser;
+import com.yf.psp.db.postgres.csm.dao.TblCsmUserMapper;
 import com.yf.psp.db.util.plugin.PageByPageNo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpSession;
-import java.io.IOException;
 import java.util.*;
 
 @Service
@@ -417,7 +419,10 @@ public class CompanyService {
 //	}
 	@Autowired
 	TblCompanyLabelMapper  tblCompanyLabelMapper;
-
+    @Autowired
+    TblCsmUserMapper tblCsmUserMapper;
+    @Autowired
+    TblCompanyLabelRelaMapper tblCompanyLabelRelaMapper;
     @Autowired
     TblCompanyMapper  tblCompanyMapper;
 	public Map<String,List<TblCompanyLabel>> listLabel(){
@@ -489,11 +494,171 @@ for(TblCompany tc:tcl){
     m.put("addressNj",tc.getAddressNj());
     m.put("status",tc.getStatus());
     m.put("audit_status",tc.getAuditStatus());
+    m.put("remark",tc.getRemark());
+    m.put("createTime",tc.getCreateTime()==null?null:tc.getCreateTime().getTime());
+    m.put("auditTime",tc.getAuditTime()==null?null:tc.getAuditTime().getTime());
+    List<TblCsmUser>  tcul = tblCsmUserMapper.getByCompanyId(tc.getCompanyId());
+    List<Map<String,Object>> users= new ArrayList<>();
+    for(TblCsmUser tcu:tcul){
+        Map<String,Object> m1 = new HashMap<>();
+        m1.put("userId",tcu.getUserId());
+        m1.put("username",tcu.getUserName());
+        m1.put("realName",tcu.getRealName());
+        m1.put("role",tcu.getRoleName());
+        m1.put("status",tcu.getStatus());
+        users.add(m1);
+    }
+    m.put("users",users);
+    List<TblCompanyLabel>  tcll = tblCompanyLabelMapper.getByCompanyId(tc.getCompanyId());
+    List<Map<String,Object>> companyLabels= new ArrayList<>();
+    for(TblCompanyLabel tblCompanyLabel:tcll){
+        Map<String,Object> m2 = new HashMap<>();
+        m2.put("labelId",tblCompanyLabel.getLabelId());
+        m2.put("labelName",tblCompanyLabel.getLabelName());
+        m2.put("labelType",tblCompanyLabel.getLabelType());
+        companyLabels.add(m2);
+    }
+    m.put("companyLabels",companyLabels);
     companys.add(m);
 }
         Map<String,Object> retMap = new HashMap<>();
         retMap.put("total", page.getTotal());
         retMap.put("companys",companys);
         return retMap;
+    }
+
+    public  Map<String,Object> create( CompanyRequest ccr){
+//        companyName:"asdda"
+//        legalPersonAuthorizer："sadasd" //法人授权人
+//        authorizerPhoneNo:"sadsaf"//授权人手机号
+//        remark:"阿斯顿撒"  //多行文本区域(备注)
+//        unifiedSocialCreditCode:"asdasd" //社会统一信用代码
+//        labelIds:[   //公司包含的职能标签
+//        11,22,33
+//]
+        TblCompany tc = new TblCompany();
+        tc.setCompanyName(ccr.getCompanyName());
+        tc.setLegalPersonAuthorizer(ccr.getLegalPersonAuthorizer());
+        tc.setAuthorizerPhoneNo(ccr.getAuthorizerPhoneNo());
+        tc.setRemark(ccr.getRemark());
+        tc.setUnifiedSocialCreditCode(ccr.getUnifiedSocialCreditCode());
+         tblCompanyMapper.insertSelective(tc);
+        for(Integer labelId :ccr.getLabelIds()){
+            TblCompanyLabelRela tclr = new TblCompanyLabelRela();
+            tclr.setCompanyId(tc.getCompanyId().intValue());
+            tclr.setLabelId(labelId);
+            tclr.setDeleteFlag(new Short("0"));
+            tblCompanyLabelRelaMapper.insertSelective(tclr);
+        }
+Map retMap = new HashMap();
+        retMap.put("companyId",tc.getCompanyId());
+        return retMap;
+    }
+
+
+    public  void update( Integer updateType,CompanyRequest ccr){
+//        companyName:"asdda"
+//        legalPersonAuthorizer："sadasd" //法人授权人
+//        authorizerPhoneNo:"sadsaf"//授权人手机号
+//        remark:"阿斯顿撒"  //多行文本区域(备注)
+//        unifiedSocialCreditCode:"asdasd" //社会统一信用代码
+//        labelIds:[   //公司包含的职能标签
+//        11,22,33
+//]
+        if(updateType==1){
+            TblCompany tc = new TblCompany();
+            tc.setCompanyId(ccr.getCompanyId());
+            tc.setCompanyName(ccr.getCompanyName());
+            tc.setLegalPersonAuthorizer(ccr.getLegalPersonAuthorizer());
+            tc.setAuthorizerPhoneNo(ccr.getAuthorizerPhoneNo());
+            tc.setRemark(ccr.getRemark());
+            tc.setUnifiedSocialCreditCode(ccr.getUnifiedSocialCreditCode());
+            tblCompanyMapper.updateByPrimaryKeySelective(tc);
+            tblCompanyLabelRelaMapper.deleteByCompanyId(tc.getCompanyId().intValue());
+            for(Integer labelId :ccr.getLabelIds()){
+                TblCompanyLabelRela tclr = new TblCompanyLabelRela();
+                tclr.setCompanyId(tc.getCompanyId().intValue());
+                tclr.setLabelId(labelId);
+                tclr.setDeleteFlag(new Short("0"));
+                tblCompanyLabelRelaMapper.insertSelective(tclr);
+            }
+        }else if (updateType ==2){
+            TblCompany tcOld = tblCompanyMapper.selectByPrimaryKey(ccr.getCompanyId());
+
+            TblCompany tc = tblCompanyMapper.getByRelaCompanyId(ccr.getCompanyId());
+            if(tc!=null){
+
+                tc.setCompanyName(tcOld.getCompanyName());
+                tc.setLegalPersonAuthorizer(tcOld.getLegalPersonAuthorizer());
+                tc.setAuthorizerPhoneNo(tcOld.getAuthorizerPhoneNo());
+                tc.setRemark(tcOld.getRemark());
+                tc.setUnifiedSocialCreditCode(tcOld.getUnifiedSocialCreditCode());
+
+//                businessScope:"asdasd" //业务范围
+//                companyQualification:"sadsadsa"//企业资质
+//                legalPerson:"afasf" //法人
+//                legalPersonIdentityNo:"afasf" //法人身份证号
+//                authorizerEmail:"asdsadsa"//授权人邮箱
+//                registerArea:"asfasfas" //注册地
+//                registerCapital:"asfasf" //注册资本
+//                addressNj:"asfsafas"// 驻宁地址
+
+                tc.setBusinessScope(ccr.getBusinessScope());
+                tc.setCompanyQualification(ccr.getCompanyQualification());
+                tc.setLegalPerson(ccr.getLegalPerson());
+                tc.setLegalPersonIdentityNo(ccr.getLegalPersonIdentityNo());
+                tc.setAuthorizerEmail(ccr.getAuthorizerEmail());
+                tc.setRegisterArea(ccr.getRegisterArea());
+                tc.setRegisterCapital(ccr.getRegisterCapital());
+                tc.setAddressNj(ccr.getAddressNj());
+                tc.setAuditStatus(new Short("0"));
+                tblCompanyMapper.updateByPrimaryKeySelective(tc);
+
+            }else{
+                TblCompany tcNew = new TblCompany();
+
+                tcNew.setCompanyName(tcOld.getCompanyName());
+                tcNew.setLegalPersonAuthorizer(tcOld.getLegalPersonAuthorizer());
+                tcNew.setAuthorizerPhoneNo(tcOld.getAuthorizerPhoneNo());
+                tcNew.setRemark(tcOld.getRemark());
+                tcNew.setUnifiedSocialCreditCode(tcOld.getUnifiedSocialCreditCode());
+
+//                businessScope:"asdasd" //业务范围
+//                companyQualification:"sadsadsa"//企业资质
+//                legalPerson:"afasf" //法人
+//                legalPersonIdentityNo:"afasf" //法人身份证号
+//                authorizerEmail:"asdsadsa"//授权人邮箱
+//                registerArea:"asfasfas" //注册地
+//                registerCapital:"asfasf" //注册资本
+//                addressNj:"asfsafas"// 驻宁地址
+
+                tcNew.setBusinessScope(ccr.getBusinessScope());
+                tcNew.setCompanyQualification(ccr.getCompanyQualification());
+                tcNew.setLegalPerson(ccr.getLegalPerson());
+                tcNew.setLegalPersonIdentityNo(ccr.getLegalPersonIdentityNo());
+                tcNew.setAuthorizerEmail(ccr.getAuthorizerEmail());
+                tcNew.setRegisterArea(ccr.getRegisterArea());
+                tcNew.setRegisterCapital(ccr.getRegisterCapital());
+                tcNew.setAddressNj(ccr.getAddressNj());
+                tcNew.setAuditStatus(new Short("0"));
+                tcNew.setRelaCompanyId(tcOld.getCompanyId().intValue());
+                tblCompanyMapper.insertSelective(tcNew);
+
+                List<TblCompanyLabel>  tcll = tblCompanyLabelMapper.getByCompanyId(tcOld.getCompanyId());
+                List<Map<String,Object>> companyLabels= new ArrayList<>();
+
+                for(TblCompanyLabel tcl :tcll){
+                    TblCompanyLabelRela tclr = new TblCompanyLabelRela();
+                    tclr.setCompanyId(tcOld.getCompanyId().intValue());
+                    tclr.setLabelId(tcl.getLabelId().intValue());
+                    tclr.setDeleteFlag(new Short("0"));
+                    tblCompanyLabelRelaMapper.insertSelective(tclr);
+                }
+
+            }
+
+
+        }
+
     }
 }

@@ -41,7 +41,7 @@ password:”123456” <string> // 密码， demo阶段有效用户为的密码�
 
 
 ## 3.list company
-###  url: GET /tenant/v1/company/list?unifiedSocialCreditCode=aaa&companyName=bbb&companyLabel=1&pageNo=1&pageSize=10&queryType=1 // queryType 1:查询所有公司 2：刚创建的公司 3：查询待审批入库的公司 4：查询已经入库的公司
+###  url: GET /tenant/v1/company/list?unifiedSocialCreditCode=aaa&companyName=bbb&companyLabel=1&pageNo=1&pageSize=10&queryType=1 // queryType 1:查询所有公司(不包括审批流程中的公司信息) 2：未入库的公司 3：已入库的公司 4：查询待审批入库、审批通过、审批未通过的公司 
 ### Request:
 {
 }
@@ -51,6 +51,8 @@ password:”123456” <string> // 密码， demo阶段有效用户为的密码�
 total:100
 "companys":[
 {
+createTime:2141242141//1970.1.1到创建时间的毫秒数
+auditTime:2141242141//1970.1.1到审计时间的毫秒数
 businessScope:"asdasd" //业务范围
 companyId:1
 companyName:"asdda"
@@ -65,7 +67,7 @@ registerCapital:"asfasf" //注册资本
 addressNj:"asfsafas"// 驻宁地址
  
 status:1 //启用禁用状态 1：启用 0：暂停 2：暂停中 3：注销
-audit_status：0 // 审核状态  0:未提交审核 1:待审核 1：审核通过 2：审核不通过
+audit_status：0 // 审核状态  0:待审核 1：审核通过 2：审核不通过
 unifiedSocialCreditCode:"asdasd" //社会统一信用代码
 remark:"阿斯顿撒"  //多行文本区域(备注)
 companyLabels:[   //公司包含的职能标签
@@ -139,7 +141,7 @@ companyId: 1
 }
 
 ## 6.update company
-###  url: POST /tenant/v1/company/update
+###  url: POST /tenant/v1/company/update?updateType=1 //1 内部人员更新基础信息 2 企业自己提交自己的高级信息去审批
 ### Request:
 {
 --1.第一部分是政务部门内部操作员更新的字段

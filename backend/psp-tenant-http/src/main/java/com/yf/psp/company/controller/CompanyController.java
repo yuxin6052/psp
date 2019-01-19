@@ -2,18 +2,15 @@ package com.yf.psp.company.controller;
 
 
 import com.yf.psp.common.http.exception.PspException;
+import com.yf.psp.company.entity.CompanyRequest;
 import com.yf.psp.company.service.CompanyService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
 import java.util.HashMap;
-import java.util.Map;
 
 
 @Controller
@@ -113,5 +110,18 @@ public class CompanyController {
     @ResponseBody
     public Object list(@RequestParam(value="companyName",required = false)String companyName,@RequestParam(value="companyLabel",required = false)Long companyLabel,@RequestParam(value="unifiedSocialCreditCode",required = false)String unifiedSocialCreditCode,@RequestParam(value="pageNo",required = false)Integer pageNo,@RequestParam(value="pageSize",required = false)Integer pageSize,@RequestParam(value="queryType",required = false)Integer queryType ) throws PspException, PspException.PspForbiddenException {
         return companyService.list(companyName,companyLabel,unifiedSocialCreditCode,pageNo,pageSize,queryType);
+    }
+
+    @PostMapping("/tenant/v1/company/create")
+    @ResponseBody
+    public Object create(@RequestBody CompanyRequest ccr) throws PspException, PspException.PspForbiddenException {
+        return companyService.create(ccr);
+    }
+
+    @PostMapping("/tenant/v1/company/update")
+    @ResponseBody
+    public Object create(@RequestParam("updateType")Integer updateType,@RequestBody CompanyRequest ccr) throws PspException, PspException.PspForbiddenException {
+         companyService.update(updateType,ccr);
+         return new HashMap<>();
     }
 }
