@@ -98,15 +98,16 @@ export const appRouter = [
             { path: 'user-list', title: 'User Mgnt', name: 'user-list', icon: 'compose', component: () => import('@/views/user-manage/user-list/user-list.vue') },
         ]
     },
+
     {
-        path: '/device',
+        path: '/enterprise',
         icon: 'android-checkbox',
-        name: 'device',
-        title: 'Device Mgnt',
+        name: 'enterprise',
+        title: 'enterprise list',
         component: Main,
         children: [
-            { path: 'device-list', title: 'Device Mgnt', name: 'device-list', icon: 'compose', component: () => import('@/views/device-manage/device-list/device-list.vue') },
-            
+            { path: 'enterprise-list', title: 'enterprise list', name: 'enterprise-list', icon: 'compose', component: () => import('@/views/enterprise/eneterprise-list.vue') },
+
 
         ]
     }
