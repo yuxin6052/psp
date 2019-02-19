@@ -9,6 +9,22 @@ export const loginRouter = {
     },
     component: () => import('@/views/login.vue')
 };
+export const index = {
+    path: '/index',
+    name: 'index',
+    meta: {
+        title: 'home -首页'
+    },
+    component: () => import('@/views/show-template/home.vue')
+};
+export const list = {
+    path: '/list',
+    name: 'list',
+    meta: {
+        title: '列表页'
+    },
+    component: () => import('@/views/show-template/list.vue')
+};
 
 export const page404 = {
     path: '/*',
@@ -137,6 +153,8 @@ export const appRouter = [
 export const routers = [
     loginRouter,
     otherRouter,
+    index,
+    list,
     locking,
     ...appRouter,
     page500,
