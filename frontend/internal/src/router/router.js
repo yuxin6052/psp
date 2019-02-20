@@ -25,6 +25,14 @@ export const list = {
     },
     component: () => import('@/views/show-template/list.vue')
 };
+export const detail = {
+    path: '/detail',
+    name: 'detail',
+    meta: {
+        title: '详情页'
+    },
+    component: () => import('@/views/show-template/detail.vue')
+};
 
 export const page404 = {
     path: '/*',
@@ -155,6 +163,7 @@ export const routers = [
     otherRouter,
     index,
     list,
+    detail,
     locking,
     ...appRouter,
     page500,
